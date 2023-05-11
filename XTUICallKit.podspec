@@ -1,42 +1,55 @@
-#
-# Be sure to run `pod lib lint XTUICallKit.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
-#
 
 Pod::Spec.new do |s|
   s.name             = 'XTUICallKit'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of XTUICallKit.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.version          = '0.0.1'
+  s.summary          = 'XTUICallKit.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  desc
                        DESC
 
-  s.homepage         = 'https://github.com/yj/XTUICallKit'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/yj21120/XTUICallKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'yj' => '-' }
-  s.source           = { :git => 'https://github.com/yj/XTUICallKit.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'https://github.com/yj21120/XTUICallKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
-
+  s.ios.deployment_target = '9.0'
+  s.xcconfig     = { 'VALID_ARCHS' => 'armv7 arm64 x86_64' }
   s.source_files = 'XTUICallKit/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'XTUICallKit' => ['XTUICallKit/Assets/*.png']
-  # }
+  s.requires_arc = true
+  s.static_framework = true
+  
+  s.dependency 'Masonry'
+  s.dependency 'TUICore', '~>7.1.3925'
+  s.dependency 'lottie-ios', '~>2.5.3'
+ 
+  s.pod_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
+  }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  s.swift_version = '5.0'
+  s.default_subspec = 'TRTC'
+  
+  s.subspec 'TRTC' do |trtc|
+    trtc.dependency 'TXLiteAVSDK_TRTC'
+    trtc.dependency 'TUICallEngine/TRTC', '~> 1.5.1.310'
+    trtc.source_files = 'TUICallKit/*.{h,m,mm}', 'TUICallKit/localized/**/*.{h,m,mm}', 'TUICallKit/Base/*.{h,m,mm}', 'TUICallKit/Service/**/*.{h,m,mm}', 'TUICallKit/Config/*.{h,m,mm}', 'TUICallKit/UI/**/*.{h,m,mm}', 'TUICallKit/TUICallKit_TRTC/*.{h,m,mm}', 'TUICallKit/TUICallEngine_Framework/*.{h,m,mm}'
+    trtc.ios.framework = ['AVFoundation', 'Accelerate']
+    trtc.library = 'c++', 'resolv','sqlite3'
+    trtc.resource_bundles = {
+      'TUICallingKitBundle' => ['Resources/Localized/**/*.gif','Resources/Localized/**/*.strings', 'Resources/AudioFile', 'Resources/*.xcassets']
+    }
+  end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec 'Professional' do |professional|
+    professional.dependency 'TXLiteAVSDK_Professional'
+    professional.dependency 'TUICallEngine/Professional'
+    professional.source_files = 'TUICallKit/*.{h,m,mm}', 'TUICallKit/localized/**/*.{h,m,mm}', 'TUICallKit/Base/*.{h,m,mm}', 'TUICallKit/Service/**/*.{h,m,mm}', 'TUICallKit/Config/*.{h,m,mm}', 'TUICallKit/UI/**/*.{h,m,mm}', 'TUICallKit/TUICallKit_Professional/*.{h,m,mm}', 'TUICallKit/TUICallEngine_Framework/*.{h,m,mm}'
+    professional.ios.framework = ['AVFoundation', 'Accelerate', 'AssetsLibrary']
+    professional.library = 'c++', 'resolv', 'sqlite3'
+    professional.resource_bundles = {
+      'TUICallingKitBundle' => ['Resources/Localized/**/*.gif','Resources/Localized/**/*.strings', 'Resources/AudioFile', 'Resources/*.xcassets']
+    }
+  end
 end
