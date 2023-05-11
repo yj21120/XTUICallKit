@@ -4,10 +4,6 @@ Pod::Spec.new do |s|
   s.version          = '0.0.1'
   s.summary          = 'XTUICallKit.'
 
-  s.description      = <<-DESC
-  desc
-                       DESC
-
   s.homepage         = 'https://github.com/yj21120/XTUICallKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'yj' => '-' }
@@ -15,7 +11,6 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
   s.xcconfig     = { 'VALID_ARCHS' => 'armv7 arm64 x86_64' }
-  s.source_files = 'XTUICallKit/Classes/**/*'
   
   s.requires_arc = true
   s.static_framework = true
