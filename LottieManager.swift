@@ -24,6 +24,12 @@ import Lottie
         }
         print(filepath)
     }
+  public func loadLocalAnimationView(name:String)->AnimationView{
+    let view = AnimationView(name: name)
+    view.loopMode = .loop
+    view.play()
+    return view
+  }
   public func loadAnimationView(jsonPath:String,searchPath:String?) -> AnimationView{
     let view = AnimationView(filePath: jsonPath)
     if let path = searchPath{

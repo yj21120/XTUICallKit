@@ -10,7 +10,8 @@
 #import "TUICallingAction.h"
 #import "Masonry.h"
 #import "CustomButton.h"
-#import <Lottie/Lottie.h>
+#import <Lottie/Lottie-Swift.h>
+#import <XTUICallKit/XTUICallKit-Swift.h>
 @interface TUICallingAudioFunctionView ()
 
 @property (nonatomic, strong) CustomButton *muteBtn;
@@ -20,7 +21,7 @@
 @property (nonatomic, strong) TUICallingControlButton *handsfreeBtn;
 @property (nonatomic, strong) TUICallingControlButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *giftBtn;
-@property (nonatomic,strong) LOTAnimationView *aniView;
+@property (nonatomic,strong) AnimationView *aniView;
 
 @end
 
@@ -79,7 +80,6 @@
     make.width.mas_equalTo(40);
     make.height.mas_equalTo(73);
   }];
-  [self.aniView play];
 }
 - (void)updateChargeStatus:(BOOL)normal{
   [self.rechargeBtn updateImage:[UIImage imageNamed:normal ? @"func_recharge_n" : @"func_recharge"]];
@@ -233,12 +233,9 @@
   }
   return _giftBtn;
 }
-- (LOTAnimationView *)aniView{
+- (AnimationView *)aniView{
   if (!_aniView){
-    _aniView = [LOTAnimationView new];
-    [_aniView setAnimationNamed:@"飘爱心"];
-    [_aniView play];
-    [_aniView setLoopAnimation:true];
+    _aniView = [LottieManager.shared loadLocalAnimationViewWithName:@"飘爱心"];
   }
   return _aniView;
 }

@@ -9,7 +9,8 @@
 #import "TUICallingVideoFunctionView.h"
 #import "Masonry.h"
 #import "CustomButton.h"
-#import "Lottie.h"
+#import <Lottie/Lottie-Swift.h>
+#import <XTUICallKit/XTUICallKit-Swift.h>
 @interface TUICallingVideoFunctionView ()
 
 @property (nonatomic, strong) TUICallingControlButton *muteBtn;
@@ -19,7 +20,7 @@
 @property (nonatomic, strong) UIButton *switchCameraBtn;
 @property (nonatomic, strong) TUICallingControlButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *giftBtn;
-@property (nonatomic,strong) LOTAnimationView *aniView;
+@property (nonatomic,strong) AnimationView *aniView;
 @end
 
 @implementation TUICallingVideoFunctionView
@@ -80,7 +81,7 @@
     make.width.mas_equalTo(40);
     make.height.mas_equalTo(73);
   }];
-  [self.aniView play];
+  
 //
 //
 //    [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,12 +236,9 @@
   }
   return _giftBtn;
 }
-- (LOTAnimationView *)aniView{
+- (AnimationView *)aniView{
   if (!_aniView){
-    _aniView = [LOTAnimationView new];
-    [_aniView setAnimationNamed:@"飘爱心"];
-    [_aniView play];
-    [_aniView setLoopAnimation:true];
+    _aniView = [LottieManager.shared loadLocalAnimationViewWithName:@"飘爱心"];
   }
   return _aniView;
 }
