@@ -17,7 +17,10 @@ Pod::Spec.new do |s|
   
   s.dependency 'Masonry'
   s.dependency 'TUICore', '~>7.1.3925'
-  s.dependency 'lottie-ios', '~>2.5.3'
+  s.dependency 'lottie-ios', '~> 3.2.3'  #, '~>2.5.3'
+  s.dependency 'ZipArchive'
+  s.dependency 'Moya'
+ 
  
   s.pod_target_xcconfig = {
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'

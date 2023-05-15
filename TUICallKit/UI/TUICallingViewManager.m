@@ -38,7 +38,8 @@
 #import "CustomRechargeView.h"
 #import "CustomMinuteCostView.h"
 #import "CustomIncomeView.h"
-#import "Lottie.h"
+#import <Lottie/Lottie-Swift.h>
+#import <XTUICallKit/XTUICallKit-Swift.h>
 
 static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit";
 
@@ -67,7 +68,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 @property (nonatomic,strong) CustomRechargeView *rechargeView;
 @property (nonatomic,strong) CustomMinuteCostView *costView;
 @property (nonatomic,strong) CustomIncomeView *incomeView;
-@property (nonatomic,strong) LOTAnimationView *lottieView;
+@property (nonatomic,strong) AnimationView *lottieView;
 @property (nonatomic,strong) UILabel *tips;
 @property (nonatomic,copy) NSString *playingUrl;
 @property (nonatomic,assign) BOOL isRandom;
@@ -171,15 +172,21 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     if (self.lottieView || path.length == 0){
       return;
     }
-    self.lottieView = [[LOTAnimationView alloc] initWithContentsOfURL:[NSURL URLWithString:path]];
-    self.lottieView.frame = self.containerView.bounds;
-    [self.containerView addSubview:self.lottieView];
     __weak typeof(self) ws = self;
-    [self.lottieView playWithCompletion:^(BOOL animationFinished) {
-      [ws cleanPlayingUrl];
+    [LottieManager.shared loadBundleProviderWithGiftId:0 downloadurl:@"" animationresult:^(NSString * _Nullable jsonpath, NSString * _Nullable searchpath) {
+      [ws loadAnimationView:jsonpath searchPath:searchpath];
     }];
-    [self performSelector:@selector(cleanPlayingUrl) withObject:nil afterDelay:12];
   }
+}
+- (void)loadAnimationView:(NSString *)jsonPath searchPath:(NSString *)searchPath{
+  self.lottieView = [LottieManager.shared loadAnimationViewWithJsonPath:jsonPath searchPath:searchPath];
+  self.lottieView.frame = self.containerView.bounds;
+  [self.containerView addSubview:self.lottieView];
+  __weak typeof(self) ws = self;
+  [LottieManager.shared playLottieViewWithView:self.lottieView completion:^(BOOL b) {
+    [ws cleanPlayingUrl];
+  }];
+  [self performSelector:@selector(cleanPlayingUrl) withObject:nil afterDelay:12];
 }
 - (void)cleanPlayingUrl{
     self.playingUrl = nil;
