@@ -846,7 +846,7 @@ callMediaType:(TUICallMediaType)callMediaType
 - (void)isRandomVideo:(BOOL)random{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"window",@"param":@(random)}];
 }
-- (void)playGift:(NSString *)gift{
+- (void)playGift:(NSDictionary *)gift{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"playGift",@"param":gift}];
 }
 @end

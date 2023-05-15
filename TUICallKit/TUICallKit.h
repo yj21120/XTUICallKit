@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateCostInfo:(NSDictionary *)json;
 - (void)updateIncomeInfo:(NSDictionary *)json;
 - (void)isRandomVideo:(BOOL)random;
-- (void)playGift:(NSString *)gift;
+- (void)playGift:(NSDictionary *)gift;
 @end
 
 NS_ASSUME_NONNULL_END
