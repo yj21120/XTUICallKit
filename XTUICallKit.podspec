@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'XTUICallKit'
-  s.version          = '0.0.7'
+  s.version          = '0.0.9'
   s.summary          = 'XTUICallKit.'
 
   s.homepage         = 'https://github.com/yj21120/XTUICallKit'
