@@ -47,9 +47,9 @@ import Lottie
     ///   - giftId: 特效id
     ///   - downloadurl: 特效下载地址
     ///   - animationresult: 特效 images目录
-  public func loadBundleProvider(giftId:Int , downloadurl:String ,animationresult:@escaping ( _ jsonfullpath:String?,_ searchPath:String?) -> Void ) {
-        let fullpath = filepath + "/\(giftId)/data.json"
-        let imgprovider = filepath + "/\(giftId)/images"
+  public func loadBundleProvider(name:String , downloadurl:String ,animationresult:@escaping ( _ jsonfullpath:String?,_ searchPath:String?) -> Void ) {
+        let fullpath = filepath + "/\(name)/data.json"
+        let imgprovider = filepath + "/\(name)/images"
         var jsonpath:String?=nil
         if FileManager.default.fileExists(atPath: fullpath) {
             jsonpath = fullpath
@@ -62,8 +62,8 @@ import Lottie
         }
             //网络下载 并解压
         else{
-            let  giftpath = filepath + "/\(giftId)"
-            let assetName =  "\(giftId)"
+            let  giftpath = filepath + "/\(name)"
+            let assetName =  "\(name)"
             jsonpath = giftpath + "/data.json"
             let  urladdress  = downloadurl
             //通过Moya进行下载
@@ -73,13 +73,13 @@ import Lottie
                     let localLocation: URL = DefaultDownloadDir.appendingPathComponent(assetName)
                     print("下载完毕！保存地址：\(localLocation)")
                     if  urladdress.contains(".zip") {
-                        let  urlpath = URL.init(fileURLWithPath: self.filepath + "/\(giftId).zip" )
+                        let  urlpath = URL.init(fileURLWithPath: self.filepath + "/\(name).zip" )
                         do {
 
-                            try       FileManager.default.createDirectory(atPath: self.filepath + "/\(giftId)", withIntermediateDirectories: true, attributes: nil)
+                            try       FileManager.default.createDirectory(atPath: self.filepath + "/\(name)", withIntermediateDirectories: true, attributes: nil)
 
                             let ziptool  = ZipArchive.init()
-                            if  ziptool.unzipOpenFile( self.filepath + "/\(giftId).zip") {
+                            if  ziptool.unzipOpenFile( self.filepath + "/\(name).zip") {
                                 let  res =    ziptool.unzipFile(to: giftpath, overWrite: true)
                                 if !res {
                                     ziptool.unzipCloseFile()
@@ -106,7 +106,7 @@ import Lottie
                     else if urladdress.contains(".json") {
                         do {
 
-                            try       FileManager.default.createDirectory(atPath: self.filepath + "/\(giftId)", withIntermediateDirectories: true, attributes: nil)
+                            try       FileManager.default.createDirectory(atPath: self.filepath + "/\(name)", withIntermediateDirectories: true, attributes: nil)
                             try  FileManager.default.moveItem(atPath: self.filepath + "/data.json", toPath: giftpath + "/data.json")
 
                             animationresult(jsonpath,nil)

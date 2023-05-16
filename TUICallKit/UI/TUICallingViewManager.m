@@ -164,7 +164,14 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     BOOL random = [json[@"param"] boolValue];
     self.isRandom = random;
   }else if ([func isEqualToString:@"playGift"]){
-    NSString *path = json[@"param"];
+    NSDictionary *param = json[@"param"];
+    if (!param){
+      return;
+    }
+    NSString *path = param[@"screen_url"];
+    NSString *name = [[path lastPathComponent] stringByRemovingPercentEncoding];
+    name = [name componentsSeparatedByString:@"/"].lastObject;
+    name = [name componentsSeparatedByString:@"."].firstObject;
     if (!path || [path isKindOfClass:NSNull.class] || [path isEqualToString:@"<null>"]){
       path = @"";
     }
@@ -173,7 +180,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
       return;
     }
     __weak typeof(self) ws = self;
-    [LottieManager.shared loadBundleProviderWithGiftId:0 downloadurl:@"" animationresult:^(NSString * _Nullable jsonpath, NSString * _Nullable searchpath) {
+    [LottieManager.shared loadBundleProviderWithName:name downloadurl:path animationresult:^(NSString * _Nullable jsonpath, NSString * _Nullable searchpath) {
       [ws loadAnimationView:jsonpath searchPath:searchpath];
     }];
   }
