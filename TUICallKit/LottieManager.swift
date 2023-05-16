@@ -33,7 +33,7 @@ import Lottie
   public func loadAnimationView(jsonPath:String,searchPath:String?) -> AnimationView{
     let view = AnimationView(filePath: jsonPath)
     if let path = searchPath{
-      view.imageProvider = BundleImageProvider(bundle: .main, searchPath: path)
+      view.imageProvider = FilepathImageProvider(filepath: path)
     }
     return view
   }
