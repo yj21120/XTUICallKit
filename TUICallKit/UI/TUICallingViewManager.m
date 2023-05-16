@@ -63,6 +63,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 @property (nonatomic, assign) BOOL enableFloatWindow;
 @property (nonatomic, assign) BOOL alreadyShownCallKitView;
 @property (nonatomic,strong) UIImageView *userAvatarView;
+@property (nonatomic,strong) UIView *userMaskView;
 @property (nonatomic,strong) CustomUserInfoView *userInfoView;
 @property (nonatomic,strong) CustomGiftView *giftView;
 @property (nonatomic,strong) CustomRechargeView *rechargeView;
@@ -232,6 +233,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
       [self.userInfoView updateTips:@""];
     }
   [self.containerView addSubview:self.userAvatarView];
+  [self.userAvatarView addSubview:self.userMaskView];
     [self.containerView addSubview:self.callingUserView];
     [self.containerView addSubview:self.callingFunctionView];
   [self.containerView addSubview:self.userInfoView];
@@ -354,6 +356,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         self.callingFunctionView = [[TUICallingAudioFunctionView alloc] initWithFrame:CGRectZero];
     }
     [self.containerView addSubview:self.userAvatarView];
+  [self.userAvatarView addSubview:self.userMaskView];
     [self.containerView addSubview:self.callingUserView];
     [self.containerView addSubview:self.timerView];
     [self.containerView addSubview:self.callingFunctionView];
@@ -541,6 +544,9 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     [self.userAvatarView mas_makeConstraints:^(MASConstraintMaker *make) {
       make.edges.mas_equalTo(0);
     }];
+    [self.userMaskView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.edges.mas_equalTo(0);
+    }];
   }
 }
 
@@ -692,6 +698,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
   [self.incomeView updateIncome:nil];
   [self.costView removeFromSuperview];
   [self.userAvatarView removeFromSuperview];
+  [self.userMaskView removeFromSuperview];
     [self.containerView removeFromSuperview];
     self.callingWindow.hidden = YES;
     self.callingWindow = nil;
@@ -1094,6 +1101,13 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     _userAvatarView.clipsToBounds = true;
   }
   return _userAvatarView;
+}
+- (UIView *)userMaskView{
+  if (!_userMaskView){
+    _userMaskView = [UIView new];
+    _userMaskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+  }
+  return _userMaskView;
 }
 - (UILabel *)tips{
   if (!_tips){
