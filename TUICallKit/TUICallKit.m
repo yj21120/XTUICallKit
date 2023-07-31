@@ -76,6 +76,9 @@ static NSString * const TUI_CALLING_BELL_KEY = @"CallingBell";
     }
     return self;
 }
+- (void)setCallDelegate:(id<TUICallObserver1>)delegate{
+  TUICallingStatusManager.shareInstance.delegate1 = delegate;
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -848,5 +851,14 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 - (void)playGift:(NSDictionary *)gift{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"playGift",@"param":gift}];
+}
+- (void)setCallId:(NSString *)callId{
+  
+}
+- (void)answerCall:(BOOL)accept{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"answerCall",@"accept":@(accept ? 1 : 0)}];
+}
+- (void)endCall{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"endCall"}];
 }
 @end

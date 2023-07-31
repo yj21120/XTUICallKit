@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TUICallEngineHeader.h"
-
+#import "TUICallObserver.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TUICallKit : NSObject
@@ -110,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateIncomeInfo:(NSDictionary *)json;
 - (void)isRandomVideo:(BOOL)random;
 - (void)playGift:(NSDictionary *)gift;
+- (void)setCallId:(NSString *)callId;
+- (void)answerCall:(BOOL)accept;
+- (void)endCall;
+- (void)setCallDelegate:(id<TUICallObserver1>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

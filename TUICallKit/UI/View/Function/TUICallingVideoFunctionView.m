@@ -143,7 +143,10 @@
 }
 
 - (void)hangupTouchEvent:(UIButton *)sender {
-    [TUICallingAction hangup];
+  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(endCall)]){
+    [TUICallingStatusManager.shareInstance.delegate1 endCall];
+  }
+//    [TUICallingAction hangup];
 }
 
 - (void)switchCameraTouchEvent:(UIButton *)sender {

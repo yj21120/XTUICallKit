@@ -184,6 +184,11 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     [LottieManager.shared loadBundleProviderWithName:name downloadurl:path animationresult:^(NSString * _Nullable jsonpath, NSString * _Nullable searchpath) {
       [ws loadAnimationView:jsonpath searchPath:searchpath];
     }];
+  }else if ([func isEqualToString:@"answerCall"]){
+    BOOL accept = [json[@"accept"] boolValue];
+    accept ? [TUICallingAction accept] : [TUICallingAction reject];
+  }else if ([func isEqualToString:@"endCall"]){
+    [TUICallingAction hangup];
   }
 }
 - (void)loadAnimationView:(NSString *)jsonPath searchPath:(NSString *)searchPath{

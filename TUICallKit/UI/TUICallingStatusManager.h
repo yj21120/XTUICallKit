@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TUICallEngineHeader.h"
-
+#import "TUICallObserver.h"
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXTERN NSString * const EventSubCallStatusChanged;
@@ -36,7 +36,7 @@ FOUNDATION_EXTERN NSString * const EventSubMicMuteChanged;
  Status Manager Class Protocol
  */
 @interface TUICallingStatusManager : NSObject
-
+@property (nonatomic, weak) id<TUICallObserver1> delegate1;
 /// Status Manager Protocol
 @property (nonatomic, weak) id<TUICallingStatusManagerProtocol> delegate;
 /// Calling Role

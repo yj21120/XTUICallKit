@@ -53,11 +53,17 @@
 #pragma mark - Event Action
 
 - (void)rejectTouchEvent:(UIButton *)sender {
-    [TUICallingAction reject];
+//    [TUICallingAction reject];
+  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
+    [TUICallingStatusManager.shareInstance.delegate1 answerCall:false];
+  }
 }
 
 - (void)acceptTouchEvent:(UIButton *)sender {
-    [TUICallingAction accept];
+//    [TUICallingAction accept];
+  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
+    [TUICallingStatusManager.shareInstance.delegate1 answerCall:true];
+  }
 }
 
 #pragma mark - Lazy
