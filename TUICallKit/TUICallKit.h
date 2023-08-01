@@ -11,12 +11,12 @@
 #import "TUICallEngineHeader.h"
 //#import "TUIObserver.h"
 NS_ASSUME_NONNULL_BEGIN
-@protocol TUICallObserver1 <NSObject>
-
-@optional
-- (void)answerCall:(BOOL)accept;
-- (void)endCall;
-@end
+//@protocol TUICallObserver1 <NSObject>
+//
+//@optional
+//- (void)answerCall:(BOOL)accept;
+//- (void)endCall;
+//@end
 @interface TUICallKit : NSObject
 
 /**
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCallId:(NSString *)callId;
 - (void)answerCall:(BOOL)accept;
 - (void)endCall;
-- (void)setCallDelegate:(id<TUICallObserver1>)delegate;
+//- (void)setCallDelegate:(id<TUICallObserver1>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END
