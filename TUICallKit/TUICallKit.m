@@ -76,9 +76,9 @@ static NSString * const TUI_CALLING_BELL_KEY = @"CallingBell";
     }
     return self;
 }
-//- (void)setCallDelegate:(id<TUICallObserver1>)delegate{
-//  TUICallingStatusManager.shareInstance.delegate1 = delegate;
-//}
+- (void)setCallDelegate:(id<TUIObserver>)delegate{
+  TUICallingStatusManager.shareInstance.delegate1 = delegate;
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

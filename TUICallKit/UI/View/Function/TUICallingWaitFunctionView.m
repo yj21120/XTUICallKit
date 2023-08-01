@@ -54,16 +54,16 @@
 
 - (void)rejectTouchEvent:(UIButton *)sender {
 //    [TUICallingAction reject];
-//  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
-//    [TUICallingStatusManager.shareInstance.delegate1 answerCall:false];
-//  }
+  if (TUICallingStatusManager.shareInstance.delegate1 && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
+    [TUICallingStatusManager.shareInstance.delegate1 answerCall:false];
+  }
 }
 
 - (void)acceptTouchEvent:(UIButton *)sender {
 //    [TUICallingAction accept];
-//  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
-//    [TUICallingStatusManager.shareInstance.delegate1 answerCall:true];
-//  }
+  if (TUICallingStatusManager.shareInstance.delegate1 && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(answerCall:)]){
+    [TUICallingStatusManager.shareInstance.delegate1 answerCall:true];
+  }
 }
 
 #pragma mark - Lazy

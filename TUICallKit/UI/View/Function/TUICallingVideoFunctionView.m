@@ -143,9 +143,9 @@
 }
 
 - (void)hangupTouchEvent:(UIButton *)sender {
-//  if (TUICallingStatusManager.shareInstance.delegate1 != NULL && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(endCall)]){
-//    [TUICallingStatusManager.shareInstance.delegate1 endCall];
-//  }
+  if (TUICallingStatusManager.shareInstance.delegate1 && [TUICallingStatusManager.shareInstance.delegate1 respondsToSelector:@selector(endCall)]){
+    [TUICallingStatusManager.shareInstance.delegate1 endCall];
+  }
 //    [TUICallingAction hangup];
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TUICallObserver1 <NSObject>
+@protocol TUIObserver <NSObject>
 
 @optional
 - (void)answerCall:(BOOL)accept;
