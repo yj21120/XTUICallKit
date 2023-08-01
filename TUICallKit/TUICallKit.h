@@ -9,15 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TUICallEngineHeader.h"
+#import "TUIObserver.h"
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol TUICallObserver1 <NSObject>
-
-@optional
-
-- (void)answerCall:(BOOL)accept;
-- (void)endCall;
-@end
 
 @interface TUICallKit : NSObject
 
