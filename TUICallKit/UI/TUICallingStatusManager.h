@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TUICallEngineHeader.h"
-#import "TUIObserver.h"
+#import "TUICallKit.h"
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXTERN NSString * const EventSubCallStatusChanged;
