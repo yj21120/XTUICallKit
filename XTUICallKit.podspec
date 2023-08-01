@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'XTUICallKit'
-  s.version          = '0.1.11'
+  s.version          = '0.1.12'
   s.summary          = 'XTUICallKit.'
 
   s.homepage         = 'https://github.com/yj21120/XTUICallKit'
@@ -27,18 +27,18 @@ Pod::Spec.new do |s|
   }
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   s.swift_version = '5.0'
-  s.default_subspec = 'TRTC'
+  s.default_subspec = 'Professional'
   
-  s.subspec 'TRTC' do |trtc|
-    trtc.dependency 'TXLiteAVSDK_TRTC'
-    trtc.dependency 'TUICallEngine/TRTC', '~> 1.5.1.310'
-    trtc.source_files = 'TUICallKit/*.{h,m,mm,swift}', 'TUICallKit/localized/**/*.{h,m,mm}', 'TUICallKit/Base/*.{h,m,mm}', 'TUICallKit/Service/**/*.{h,m,mm}', 'TUICallKit/Config/*.{h,m,mm}', 'TUICallKit/UI/**/*.{h,m,mm}', 'TUICallKit/TUICallKit_TRTC/*.{h,m,mm}', 'TUICallKit/TUICallEngine_Framework/*.{h,m,mm}'
-    trtc.ios.framework = ['AVFoundation', 'Accelerate']
-    trtc.library = 'c++', 'resolv','sqlite3'
-    trtc.resource_bundles = {
-      'TUICallingKitBundle' => ['Resources/Localized/**/*.gif','Resources/Localized/**/*.strings', 'Resources/AudioFile', 'Resources/*.xcassets']
-    }
-  end
+#  s.subspec 'TRTC' do |trtc|
+#    trtc.dependency 'TXLiteAVSDK_TRTC'
+#    trtc.dependency 'TUICallEngine/TRTC', '~> 1.5.1.310'
+#    trtc.source_files = 'TUICallKit/*.{h,m,mm,swift}', 'TUICallKit/localized/**/*.{h,m,mm}', 'TUICallKit/Base/*.{h,m,mm}', 'TUICallKit/Service/**/*.{h,m,mm}', 'TUICallKit/Config/*.{h,m,mm}', 'TUICallKit/UI/**/*.{h,m,mm}', 'TUICallKit/TUICallKit_TRTC/*.{h,m,mm}', 'TUICallKit/TUICallEngine_Framework/*.{h,m,mm}'
+#    trtc.ios.framework = ['AVFoundation', 'Accelerate']
+#    trtc.library = 'c++', 'resolv','sqlite3'
+#    trtc.resource_bundles = {
+#      'TUICallingKitBundle' => ['Resources/Localized/**/*.gif','Resources/Localized/**/*.strings', 'Resources/AudioFile', 'Resources/*.xcassets']
+#    }
+#  end
 
   s.subspec 'Professional' do |professional|
     professional.dependency 'TXLiteAVSDK_Professional'
