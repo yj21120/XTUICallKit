@@ -8,10 +8,16 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface CustomButton : UIButton
+@interface CustomButton1 : UIButton
 - (instancetype)initWithImage:(NSString *)named title:(NSString *)title;
 - (instancetype)initWithImage:(NSString *)named title:(NSString *)title color:(UIColor *)color;
+- (void)updateImage:(UIImage *)image;
+- (void)updateTitle:(NSString *)title;
+- (void)updateFont:(UIFont *)font;
+@end
+@interface CustomButton : UIButton
+- (instancetype)initWithImage:(NSString *)named title:(NSString *)title;
+- (instancetype)initWithImage:(NSString *)named title:(NSString *)title color:(UIColor *)color bgColor:(UIColor *)bgColor;
 - (void)updateImage:(UIImage *)image;
 - (void)updateTitle:(NSString *)title;
 - (void)updateFont:(UIFont *)font;

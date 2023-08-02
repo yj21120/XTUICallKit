@@ -16,7 +16,7 @@
 @property (nonatomic, strong) TUICallingControlButton *muteBtn;
 @property (nonatomic, strong) TUICallingControlButton *handsfreeBtn;
 @property (nonatomic, strong) TUICallingControlButton *closeCameraBtn;
-@property (nonatomic, strong) CustomButton *hangupBtn;
+@property (nonatomic, strong) CustomButton1 *hangupBtn;
 @property (nonatomic, strong) UIButton *switchCameraBtn;
 @property (nonatomic, strong) TUICallingControlButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *giftBtn;
@@ -49,8 +49,8 @@
   [self.hangupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(16);
     make.top.mas_equalTo(10);
-    make.width.mas_equalTo(80);
-    make.height.mas_equalTo(32);
+    make.width.mas_equalTo(100);
+    make.height.mas_equalTo(40);
   }];
   [self.closeCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(16);
@@ -197,12 +197,11 @@
     return _handsfreeBtn;
 }
 
-- (CustomButton *)hangupBtn {
+- (CustomButton1 *)hangupBtn {
     if (!_hangupBtn) {
-        __weak typeof(self) weakSelf = self;
-      _hangupBtn = [[CustomButton alloc] initWithImage:@"ic_hangup_small" title:@"挂断" color:UIColor.whiteColor];
+      _hangupBtn = [[CustomButton1 alloc] initWithImage:@"ic_hangup_small" title:@"挂断" color:UIColor.whiteColor];
       _hangupBtn.backgroundColor = [UIColor t_colorWithHexString:@"#F23D78"];
-      _hangupBtn.layer.cornerRadius = 16;
+      _hangupBtn.layer.cornerRadius = 20;
       _hangupBtn.clipsToBounds = true;
       [_hangupBtn updateFont:[UIFont systemFontOfSize:12]];
       [_hangupBtn addTarget:self action:@selector(hangupTouchEvent:) forControlEvents:(UIControlEventTouchUpInside)];

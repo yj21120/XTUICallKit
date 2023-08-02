@@ -22,7 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.hangupBtn];
-        [self addSubview:self.switchCameraBtn];
+//        [self addSubview:self.switchCameraBtn];
         
         [self makeConstraints];
     }
@@ -31,15 +31,14 @@
 
 - (void)makeConstraints {
     [self.hangupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(0);
-        make.size.equalTo(@(kHandleBtnSize));
-        make.right.mas_equalTo(-16);
+        make.width.mas_equalTo(100);
+        make.centerX.bottom.mas_equalTo(0);
     }];
-    [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.hangupBtn);
-        make.right.equalTo(self.hangupBtn.mas_left).offset(-10);
-        make.size.equalTo(@(kHandleBtnSize));
-    }];
+//    [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.hangupBtn);
+//        make.right.equalTo(self.hangupBtn.mas_left).offset(-10);
+//        make.size.equalTo(@(kHandleBtnSize));
+//    }];
 }
 
 #pragma mark - TUICallingFunctionViewProtocol
@@ -47,7 +46,9 @@
 - (void)updateTextColor:(UIColor *)textColor {
 //    [self.hangupBtn updateTitleColor:textColor];
 }
-
+- (void)updateChargeStatus:(BOOL)normal{
+  
+}
 #pragma mark - Action Event
 
 - (void)hangupTouchEvent:(UIButton *)sender {
@@ -69,17 +70,8 @@
 - (CustomButton *)hangupBtn {
     if (!_hangupBtn) {
         __weak typeof(self) weakSelf = self;
-      _hangupBtn = [[CustomButton alloc] initWithImage:@"ic_hangup" title:@"挂断" color:UIColor.whiteColor];
-      _hangupBtn.backgroundColor = [UIColor t_colorWithHexString:@"#F23D78"];
-      _hangupBtn.layer.cornerRadius = 30;
-      _hangupBtn.clipsToBounds = true;
+      _hangupBtn = [[CustomButton alloc] initWithImage:@"ic_hangup" title:@"取消" color:UIColor.whiteColor bgColor:[UIColor t_colorWithHexString:@"#F23D78"]];
       [_hangupBtn addTarget:self action:@selector(hangupTouchEvent:) forControlEvents:(UIControlEventTouchUpInside)];
-//        _hangupBtn = [TUICallingControlButton createWithFrame:CGRectZero
-//                                                    titleText:TUICallingLocalize(@"Demo.TRTC.Calling.hangup")
-//                                                 buttonAction:^(UIButton * _Nonnull sender) {
-//            [weakSelf hangupTouchEvent:sender];
-//        } imageSize:kBtnLargeSize];
-//        [_hangupBtn updateImage:[TUICallingCommon getBundleImageWithName:@"ic_hangup"]];
     }
     return _hangupBtn;
 }

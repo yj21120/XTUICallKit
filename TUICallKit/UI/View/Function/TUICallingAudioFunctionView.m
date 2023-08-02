@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) CustomButton *muteBtn;
 @property (nonatomic, strong) CustomButton *hangupBtn;
+@property (nonatomic, strong) CustomButton1 *hangupBtn1;
 
 @property (nonatomic, strong) TUICallingControlButton *micBtn;
 @property (nonatomic, strong) TUICallingControlButton *handsfreeBtn;
@@ -30,7 +31,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.muteBtn];
+//        [self addSubview:self.muteBtn];
         [self addSubview:self.hangupBtn];
 //        [self addSubview:self.handsfreeBtn];
         [self makeConstraints];
@@ -38,22 +39,19 @@
     return self;
 }
 - (void)updateBeginStatus{
-  [self.hangupBtn removeFromSuperview];
-  self.hangupBtn.layer.cornerRadius = 16;
-  [self.hangupBtn updateFont:[UIFont systemFontOfSize:12]];
-  [self.hangupBtn updateImage:[UIImage imageNamed:@"ic_hangup_small"]];
   [self.muteBtn removeFromSuperview];
-  [self addSubview:self.hangupBtn];
+  [self.hangupBtn removeFromSuperview];
+  [self addSubview:self.hangupBtn1];
   [self addSubview:self.micBtn];
   [self addSubview:self.handsfreeBtn];
   [self addSubview:self.rechargeBtn];
   [self addSubview:self.giftBtn];
   [self addSubview:self.aniView];
-  [self.hangupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+  [self.hangupBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(16);
     make.top.mas_equalTo(10);
-    make.width.mas_equalTo(80);
-    make.height.mas_equalTo(32);
+    make.width.mas_equalTo(100);
+    make.height.mas_equalTo(40);
   }];
   [self.micBtn mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(16);
@@ -86,15 +84,14 @@
 }
 - (void)makeConstraints {
   
-    [self.muteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.hangupBtn.mas_left).mas_offset(-10);
-        make.centerY.equalTo(self.hangupBtn);
-        make.size.equalTo(@(kHandleBtnSize));
-    }];
+//    [self.muteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.mas_equalTo(self.hangupBtn.mas_left).mas_offset(-10);
+//        make.centerY.equalTo(self.hangupBtn);
+//        make.size.equalTo(@(kHandleBtnSize));
+//    }];
     [self.hangupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-16);
-        make.bottom.mas_equalTo(0);
-        make.size.mas_equalTo(@(kHandleBtnSize));
+        make.centerX.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(100);
     }];
 //    [self.handsfreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(self.hangupBtn.mas_right).offset(5);
@@ -152,12 +149,9 @@
 
 - (CustomButton *)muteBtn {
     if (!_muteBtn) {
-        __weak typeof(self) weakSelf = self;
+        
       _muteBtn = [[CustomButton alloc] initWithImage:@"mic_off" title:@"麦克风关闭"];
       [_muteBtn addTarget:self action:@selector(muteTouchEvent:) forControlEvents:(UIControlEventTouchUpInside)];
-      _muteBtn.backgroundColor = [UIColor t_colorWithHexString:@"#ffffff"];
-      _muteBtn.layer.cornerRadius = 30;
-      _muteBtn.clipsToBounds = true;
 //        _muteBtn = [TUICallingControlButton createWithFrame:CGRectZero
 //                                                  titleText:TUICallingLocalize(@"Demo.TRTC.Calling.mic")
 //                                               buttonAction:^(UIButton * _Nonnull sender) {
@@ -167,21 +161,22 @@
     }
     return _muteBtn;
 }
-
+- (CustomButton1 *)hangupBtn1 {
+    if (!_hangupBtn1) {
+        
+      _hangupBtn1 = [[CustomButton1 alloc] initWithImage:@"ic_hangup" title:@"挂断" color:UIColor.whiteColor];
+      _hangupBtn1.backgroundColor = [UIColor t_colorWithHexString:@"#F23D78"];
+      _hangupBtn1.layer.cornerRadius = 20;
+      _hangupBtn1.clipsToBounds = true;
+      [_hangupBtn1 addTarget:self action:@selector(hangupTouchEvent:) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _hangupBtn1;
+}
 - (CustomButton *)hangupBtn {
     if (!_hangupBtn) {
-        __weak typeof(self) weakSelf = self;
-      _hangupBtn = [[CustomButton alloc] initWithImage:@"ic_hangup" title:@"挂断" color:UIColor.whiteColor];
-      _hangupBtn.backgroundColor = [UIColor t_colorWithHexString:@"#F23D78"];
-      _hangupBtn.layer.cornerRadius = 30;
-      _hangupBtn.clipsToBounds = true;
+        
+      _hangupBtn = [[CustomButton alloc] initWithImage:@"ic_hangup" title:@"取消" color:UIColor.whiteColor bgColor:[UIColor t_colorWithHexString:@"#F23D78"]];
       [_hangupBtn addTarget:self action:@selector(hangupTouchEvent:) forControlEvents:(UIControlEventTouchUpInside)];
-//        _hangupBtn = [TUICallingControlButton createWithFrame:CGRectZero
-//                                                    titleText:TUICallingLocalize(@"Demo.TRTC.Calling.hangup")
-//                                                 buttonAction:^(UIButton * _Nonnull sender) {
-//            [weakSelf hangupTouchEvent:sender];
-//        } imageSize:kBtnLargeSize];
-//        [_hangupBtn updateImage:[TUICallingCommon getBundleImageWithName:@"ic_hangup"]];
     }
     return _hangupBtn;
 }

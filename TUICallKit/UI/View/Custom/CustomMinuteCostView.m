@@ -44,6 +44,9 @@
     return;
   }
   NSDictionary *bean = info[@"bean"];
+  if (!bean){
+    return;
+  }
   int showIcon = [bean[@"current_num"] intValue] > 0;
   int origin = [bean[@"original_num"] intValue];
   NSString *oStr = bean[@"original_str"];
@@ -57,7 +60,7 @@
   if (showIcon){
     showStr = [NSString stringWithFormat:@"%d", origin];
   }
-  NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:showStr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10],NSForegroundColorAttributeName:UIColor.whiteColor}];
+  NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:showStr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:UIColor.whiteColor}];
   if (showIcon){
     [att addAttributes:@{NSStrikethroughStyleAttributeName:@(1)} range:NSMakeRange(0, att.length)];
   }
@@ -90,7 +93,7 @@
 - (UILabel *)priceC{
   if (!_priceC){
     _priceC = [UILabel new];
-    _priceC.font = [UIFont systemFontOfSize:10];
+    _priceC.font = [UIFont systemFontOfSize:14];
     _priceC.textColor = [UIColor t_colorWithHexString:@"#57EAE6"];
   }
   return _priceC;
