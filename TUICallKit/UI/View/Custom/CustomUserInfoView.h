@@ -10,10 +10,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomUserInfoView : UIView
-- (void)clean;
+- (void)clean:(BOOL)all;
 - (void)updateTips:(NSString *)tip;
 - (void)updateInfo:(nullable NSDictionary *)json;
-
+- (void)updateIcons:(NSDictionary *)dic;
 @end
 
 NS_ASSUME_NONNULL_END

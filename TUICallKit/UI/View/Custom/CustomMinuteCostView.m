@@ -49,7 +49,7 @@
   }
   int showIcon = [bean[@"current_num"] intValue] > 0;
   int origin = [bean[@"original_num"] intValue];
-  NSString *oStr = bean[@"original_str"];
+  NSString *oStr = bean[@"originalStr"];
   NSString *cStr = bean[@"current_str"];
   
   self.icon.hidden = !showIcon;
