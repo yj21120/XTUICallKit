@@ -83,7 +83,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
         self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
         [[TUICallingFloatingWindowManager shareInstance] setFloatingWindowManagerDelegate:self];
-        self.containerView.backgroundColor = UIColor.redColor;
+        self.containerView.backgroundColor = [UIColor t_colorWithHexString:@"#f4f6fd"];
         self.enableFloatWindow = NO;
       [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(flutterCallBack:) name:@"flutterCallBack" object:nil];
         [TUICore registerEvent:TUICore_TUIGroupNotify subKey:TUICore_TUIGroupNotify_SelectGroupMemberSubKey object:self];
@@ -95,20 +95,8 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
   NSString *func = json[@"func"];
   if ([func isEqualToString:@"userInfo"]){
     NSDictionary *user = json[@"param"];
-    NSString *path = user[@"avatar"][@"url"];
-    NSString *name = user[@"name"];
-    BOOL isVideo = [TUICallingStatusManager shareInstance].callMediaType == TUICallMediaTypeVideo;
-    BOOL isCaller = TUICallingStatusManager.shareInstance.callRole == TUICallRoleCall;
     [self.userInfoView updateInfo:user];
-    if (!path || [path isKindOfClass:NSNull.class] || [path isEqualToString:@"<null>"]){
-      path = @"";
-    }
-    NSURL *url = [NSURL URLWithString:path];
-    [self.userAvatarView sd_setImageWithURL:url];
     self.userId = [user[@"id"] intValue];
-    if (!isCaller){
-      [self.userInfoView updateTips:[NSString stringWithFormat:@"「%@」向你发来了%@邀请",name,isVideo ? @"视频" : @"语音"]];
-    }
     
   }else if ([func isEqualToString:@"gift"]){
     BOOL isShow = [json[@"param"] boolValue];
@@ -232,10 +220,10 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     
     if ([TUICallingStatusManager shareInstance].callRole == TUICallRoleCall) {
         self.callingFunctionView = [[TUICallingAudioFunctionView alloc] initWithFrame:CGRectZero];
-      [self.userInfoView updateTips:@"正在等待对方接听~"];
+      [self.userInfoView updateTips:@"正在发起语音通话，请等待..."];
     } else {
         self.callingFunctionView = [[TUICallingWaitFunctionView alloc] initWithFrame:CGRectZero];
-      [self.userInfoView updateTips:@""];
+      [self.userInfoView updateTips:@"想和你发起语音通话"];
     }
   [self.containerView addSubview:self.userAvatarView];
   [self.userAvatarView addSubview:self.userMaskView];
@@ -264,13 +252,13 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     
     if ([TUICallingStatusManager shareInstance].callRole == TUICallRoleCall) {
         self.callingFunctionView = [[TUICallingVideoInviteFunctionView alloc] initWithFrame:CGRectZero];
-      self.callingFunctionView.localPreView = self.localPreView;
-      [self.userInfoView updateTips:@"正在等待对方接听~"];
+//      self.callingFunctionView.localPreView = self.localPreView;
+      [self.userInfoView updateTips:@"正在发起视频通话，请等待..."];
     } else {
         self.callingFunctionView = [[TUICallingWaitFunctionView alloc] initWithFrame:CGRectZero];
-      [self.userInfoView updateTips:@""];
+      [self.userInfoView updateTips:@"想和你发起视频通话"];
     }
-  
+  self.backgroundView.hidden = true;
     [self.containerView addSubview:self.backgroundView];
     [self.containerView addSubview:self.callingUserView];
 //    [self.containerView addSubview:self.switchToAudioView];
@@ -383,7 +371,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         self.callingFunctionView = [[TUICallingVideoFunctionView alloc] initWithFrame:CGRectZero];
         self.callingFunctionView.localPreView = self.localPreView;
     }
-    
+  self.backgroundView.hidden = false;
     [self.containerView addSubview:self.backgroundView];
   [self.containerView sendSubviewToBack:self.backgroundView];
 //    [self.containerView addSubview:self.switchToAudioView];
@@ -420,7 +408,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
             self.callingFunctionView = [[TUICallingAudioFunctionView alloc] initWithFrame:CGRectZero];
         }
     }
-    
+  self.backgroundView.hidden = false;
     [self.containerView addSubview:self.backgroundView];
     [self.containerView addSubview:self.timerView];
     [self.containerView addSubview:self.callingFunctionView];
@@ -438,6 +426,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         return;
     }
     [self.floatingWindowBtn removeFromSuperview];
+    self.floatingWindowBtn.hidden = true;
     [self.containerView addSubview:self.floatingWindowBtn];
     [self makeFloatingWindowBtnConstraints];
     TUICallMediaType callMediaType = [TUICallingStatusManager shareInstance].callMediaType;
@@ -563,8 +552,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     }];
   if (self.userInfoView.superview){
     [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.left.mas_equalTo(20);
-      make.bottom.mas_equalTo(self.callingFunctionView).mas_offset(-116);
+      make.top.width.mas_equalTo(self.containerView);
     }];
     [self.tips mas_makeConstraints:^(MASConstraintMaker *make) {
       make.bottom.mas_equalTo(self.callingFunctionView).mas_offset(-90);
@@ -577,8 +565,8 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     }];
     if (TUICallingStatusManager.shareInstance.callStatus != TUICallStatusAccept){
       [self.costView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(20);
-        make.bottom.mas_equalTo(self.callingFunctionView).mas_offset(-90);
+        make.centerX.mas_equalTo(0);
+        make.top.mas_equalTo(self.userInfoView.mas_bottom);
       }];
     }
   }
@@ -1069,7 +1057,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 - (CustomUserInfoView *)userInfoView{
   if (!_userInfoView){
     _userInfoView = [CustomUserInfoView new];
-    _userInfoView.backgroundColor = UIColor.redColor;
     _userInfoView.hidden = true;
   }
   return _userInfoView;
