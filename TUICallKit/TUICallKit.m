@@ -718,6 +718,9 @@ callMediaType:(TUICallMediaType)callMediaType
     }
     
     if (role == TUICallRoleCall) {
+      if (self.callingViewManager.isRandom){
+        return;
+      }
         playAudio(CallingAudioTypeDial);
         return;
     }

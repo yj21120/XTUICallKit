@@ -55,6 +55,8 @@
     NSInteger balance = [param[@"goldBean"] integerValue];
     self.incomeLB1.text = [NSString stringWithFormat:@"余额：%ld",balance];
     self.incomeLB2.text = [NSString stringWithFormat:@"消耗：%ld",total];
+    self.container1.hidden = false;
+    self.container2.hidden = false;
 //    if (total <= 0){
 //      self.income2 = 0;
 //    }else{
@@ -125,6 +127,7 @@
   }];
   [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(10);
+    make.width.height.mas_equalTo(12);
     make.centerY.mas_equalTo(self.container);
   }];
   [self.incomeLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -148,6 +151,7 @@
   }];
   [self.icon1 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(10);
+    make.width.height.mas_equalTo(12);
     make.centerY.mas_equalTo(self.container1);
   }];
   [self.incomeLB1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,6 +176,7 @@
   }];
   [self.icon2 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(10);
+    make.width.height.mas_equalTo(12);
     make.centerY.mas_equalTo(self.container2);
   }];
   [self.incomeLB2 mas_makeConstraints:^(MASConstraintMaker *make) {

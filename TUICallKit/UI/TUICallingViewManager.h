@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface TUICallingViewManager : NSObject <TUICallingStatusManagerProtocol>
 @property (nonatomic,assign) NSInteger userId;
+@property (nonatomic,assign) BOOL isRandom;
 - (void)createCallingView:(TUICallMediaType)callType callRole:(TUICallRole)callRole callScene:(TUICallScene)callScene;
 
 - (void)createGroupCallingAcceptView:(TUICallMediaType)callType callRole:(TUICallRole)callRole callScene:(TUICallScene)callScene;

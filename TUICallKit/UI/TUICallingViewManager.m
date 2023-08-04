@@ -210,7 +210,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 @property (nonatomic,strong) AnimationView *lottieView;
 @property (nonatomic,strong) UILabel *tips;
 @property (nonatomic,copy) NSString *playingUrl;
-@property (nonatomic,assign) BOOL isRandom;
 @end
 
 @implementation TUICallingViewManager
