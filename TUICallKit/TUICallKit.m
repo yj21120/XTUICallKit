@@ -734,6 +734,9 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)callEnd {
+  if (TUICallingStatusManager.shareInstance.delegate1 && [TUICallingStatusManager.shareInstance respondsToSelector:@selector(tuiEndCall)]){
+    [TUICallingStatusManager.shareInstance.delegate1 tuiEndCall];
+  }
     [self.callingViewManager closeCallingView];
     [TUICallingUserManager clearCache];
     [self stopAudio];

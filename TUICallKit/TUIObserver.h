@@ -13,5 +13,6 @@
 @optional
 - (void)answerCall:(BOOL)accept;
 - (void)endCall;
+- (void)tuiEndCall;
 @end
 
