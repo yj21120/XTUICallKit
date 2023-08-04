@@ -890,8 +890,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     [self.callingFunctionView updateBeginStatus];
   }
   
-  self.userInfoView.hidden = TUICallingStatusManager.shareInstance.callMediaType == TUICallMediaTypeVideo;
-  [self.userInfoView clean:false];
+  self.userInfoView.hidden = true;
   NSString *s = @"文撩提醒您：";
   NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
   style.lineSpacing = 5;
