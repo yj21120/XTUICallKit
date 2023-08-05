@@ -358,7 +358,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 
 - (void)initSingleAudioWaitingView {
     self.callingUserView = [[TUICallingUserView alloc] initWithFrame:CGRectZero];
-  self.floatingWindowBtn.hidden = true;
     if ([TUICallingStatusManager shareInstance].callRole == TUICallRoleCall) {
         self.callingFunctionView = [[TUICallingAudioFunctionView alloc] initWithFrame:CGRectZero];
       [self.userInfoView updateTips:@"正在发起语音通话，请等待..."];
@@ -386,7 +385,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
 }
 
 - (void)initSingleVideoWaitingView {
-  self.floatingWindowBtn.hidden = true;
     self.backgroundView = [[TUICallingSingleView alloc] initWithFrame:self.containerView.frame
                                                          localPreView:self.localPreView
                                                         remotePreView:self.remotePreView];
@@ -572,7 +570,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         return;
     }
     [self.floatingWindowBtn removeFromSuperview];
-    self.floatingWindowBtn.hidden = true;
     [self.containerView addSubview:self.floatingWindowBtn];
     [self makeFloatingWindowBtnConstraints];
     TUICallMediaType callMediaType = [TUICallingStatusManager shareInstance].callMediaType;

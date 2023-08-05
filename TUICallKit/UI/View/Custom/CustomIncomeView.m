@@ -122,7 +122,6 @@
   [self addSubview:self.aniLB];
   [self.container mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.bottom.mas_equalTo(0);
-    make.width.mas_equalTo(self);
     make.height.mas_equalTo(24);
   }];
   [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -146,7 +145,6 @@
   [self addSubview:self.aniLB1];
   [self.container1 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.top.mas_equalTo(0);
-    make.width.mas_equalTo(self);
     make.height.mas_equalTo(24);
   }];
   [self.icon1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -170,7 +168,6 @@
   [self addSubview:self.aniLB2];
   [self.container2 mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.bottom.mas_equalTo(0);
-    make.width.mas_equalTo(self);
     make.top.mas_equalTo(self.container1.mas_bottom).mas_offset(5);
     make.height.mas_equalTo(24);
   }];
