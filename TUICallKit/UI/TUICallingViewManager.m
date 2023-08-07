@@ -275,10 +275,11 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
   }else if ([func isEqualToString:@"userIncome"]){
     NSDictionary *param = json[@"param"];
     [self.incomeView updateIncome:param];
+    BOOL free = [param[@"is_free"] boolValue];
     BOOL show = [param[@"show_fee_type"] intValue] == 1;
     int tip_minute = [param[@"fee_tips_minutes"] intValue];
     int total_minute = [param[@"fee_total_minutes"] intValue];
-    BOOL need = total_minute - tip_minute <= 1;
+    BOOL need = !free && total_minute - tip_minute <= 1;
     
     [self.callingFunctionView updateChargeStatus:!show || !need];
     
