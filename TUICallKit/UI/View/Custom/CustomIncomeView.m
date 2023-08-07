@@ -53,8 +53,8 @@
     //扣费方
     NSInteger total = [param[@"total_fee"] integerValue];
     NSInteger balance = [param[@"goldBean"] integerValue];
-    self.incomeLB1.text = [NSString stringWithFormat:@"余额：%ld",balance];
-    self.incomeLB2.text = [NSString stringWithFormat:@"消耗：%ld",total];
+    self.incomeLB1.text = [NSString stringWithFormat:@"消耗：%ld",total];
+    self.incomeLB2.text = [NSString stringWithFormat:@"余额：%ld",balance];
     self.container1.hidden = false;
     self.container2.hidden = false;
 //    if (total <= 0){
