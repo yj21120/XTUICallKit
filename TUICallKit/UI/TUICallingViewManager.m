@@ -318,6 +318,21 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     accept ? [TUICallingAction accept] : [TUICallingAction reject];
   }else if ([func isEqualToString:@"endCall"]){
     [TUICallingAction hangup];
+  }else if ([func isEqualToString:@"pornWarning"]){
+    NSDictionary *param = json[@"param"];
+    BOOL porn = [param[@"porn"] boolValue];
+    [self.callingFunctionView updatePorn:porn];
+    NSString *s = @"文撩提醒您：";
+    NSString *tip = @"请勿在视频时发布涉黄涉政等违法行为，一经发现将自动封号，以色情、婚恋、线下约会或其他异常行为引诱添加第三方账号或多刷礼物等多为诈骗，请及时向平台举报!";
+    NSString *t = param[@"tip"];
+    if (t.length > 0){
+      tip = t;
+    }
+    NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+    style.lineSpacing = 5;
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",s,tip] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
+    [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
+    self.tips.attributedText = att;
   }
 }
 - (void)loadAnimationView:(NSString *)jsonPath searchPath:(NSString *)searchPath{
@@ -514,6 +529,7 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         self.callingFunctionView = [[TUICallingVideoFunctionView alloc] initWithFrame:CGRectZero];
         self.callingFunctionView.localPreView = self.localPreView;
     }
+  self.callingFunctionView.isPorn = false;
   self.backgroundView.hidden = false;
   [self.userAvatarView removeFromSuperview];
     [self.containerView addSubview:self.backgroundView];

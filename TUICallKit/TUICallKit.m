@@ -867,5 +867,8 @@ callMediaType:(TUICallMediaType)callMediaType
 - (void)endCall{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"endCall"}];
 }
+- (void)pornWarning:(BOOL)porn tips:(NSString *)tip{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"pornWarning",@"param":@{@"porn":@(porn),@"tip":tip}}];
+}
 
 @end

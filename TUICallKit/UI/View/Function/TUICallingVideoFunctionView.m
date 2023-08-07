@@ -129,12 +129,23 @@
         [TUICallingAction openMicrophone];
     }
 }
-
+- (void)updatePorn:(BOOL)porn{
+  self.isPorn = porn;
+  if (porn){
+    [TUICallingAction closeCamera];
+  }else{
+    if (_localPreView){
+      [TUICallingAction openCamera:[TUICallingStatusManager shareInstance].camera videoView:_localPreView];
+    }
+  }
+}
 - (void)closeCameraTouchEvent:(UIButton *)sender {
     if (![TUICallingStatusManager shareInstance].isCloseCamera) {
         [TUICallingAction closeCamera];
     } else {
+      if (!self.isPorn){
         [TUICallingAction openCamera:[TUICallingStatusManager shareInstance].camera videoView:_localPreView];
+      }
     }
 }
 

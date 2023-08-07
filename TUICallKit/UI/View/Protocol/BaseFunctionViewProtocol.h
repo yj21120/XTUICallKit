@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BaseFunctionViewProtocol <NSObject>
 
 @optional
-
+@property (nonatomic,assign) BOOL isPorn;
 @property (nonatomic, strong) TUICallingVideoRenderView *localPreView;
 
 - (void)updateTextColor:(UIColor *)textColor;
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateBeginStatus;
 - (void)updateChargeStatus:(BOOL)normal;
-
+- (void)updatePorn:(BOOL)porn;
 @end
 
 NS_ASSUME_NONNULL_END
