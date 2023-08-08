@@ -867,11 +867,11 @@ callMediaType:(TUICallMediaType)callMediaType
 - (void)endCall{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"endCall"}];
 }
-- (void)pornWarning:(BOOL)porn tips:(NSString *)tip{
-  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"pornWarning",@"param":@{@"porn":@(porn),@"tip":tip}}];
+- (void)pornWarning:(BOOL)porn{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"pornWarning",@"param":@{@"porn":@(porn)}}];
 }
-- (void)updateLeftTips:(NSString *)tips{
-  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"systemText",@"text":tips}];
+- (void)updateLeftTips:(NSString *)title content:(NSString *)content{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"systemText",@"title":title,@"content":content}];
 }
 
 @end

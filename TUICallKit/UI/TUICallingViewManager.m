@@ -323,24 +323,13 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     NSDictionary *param = json[@"param"];
     BOOL porn = [param[@"porn"] boolValue];
     [self.callingFunctionView updatePorn:porn];
-    NSString *s = @"文撩提醒您：";
-    NSString *tip = @"请勿在视频时发布涉黄涉政等违法行为，一经发现将自动封号，以色情、婚恋、线下约会或其他异常行为引诱添加第三方账号或多刷礼物等多为诈骗，请及时向平台举报!";
-    NSString *t = param[@"tip"];
-    if (t.length > 0){
-      tip = t;
-    }
-    NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-    style.lineSpacing = 5;
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",s,tip] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
-    [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
-    self.tips.attributedText = att;
   }else if ([func isEqualToString:@"systemText"]){
-    NSString *text = json[@"text"];
-    NSString *s = @"文撩提醒您：";
+    NSString *title = json[@"title"];
+    NSString *content = json[@"content"];
     NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
     style.lineSpacing = 5;
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",s,text] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
-    [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",title,content] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
+    [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, title.length)];
     self.tips.attributedText = att;
   }
 }
