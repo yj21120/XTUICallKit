@@ -47,25 +47,12 @@
   if (!bean){
     return;
   }
-  int showIcon = [bean[@"current_num"] intValue] > 0;
-  int origin = [bean[@"original_num"] intValue];
   NSString *oStr = bean[@"originalStr"];
-  NSString *cStr = bean[@"current_str"];
   
-  self.icon.hidden = !showIcon;
-  self.priceC.hidden = !showIcon;
   self.priceO.hidden = false;
   
-  NSString *showStr = oStr;
-  if (showIcon){
-    showStr = [NSString stringWithFormat:@"%d", origin];
-  }
-  NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:showStr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:UIColor.whiteColor}];
-  if (showIcon){
-    [att addAttributes:@{NSStrikethroughStyleAttributeName:@(1)} range:NSMakeRange(0, att.length)];
-  }
+  NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:oStr attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:UIColor.whiteColor}];
   self.priceO.attributedText = att;
-  self.priceC.text = cStr;
 }
 - (UIStackView *)stackView{
   if (!_stackView){

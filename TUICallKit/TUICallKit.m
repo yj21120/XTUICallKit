@@ -870,6 +870,9 @@ callMediaType:(TUICallMediaType)callMediaType
 - (void)pornWarning:(BOOL)porn{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"pornWarning",@"param":@{@"porn":@(porn)}}];
 }
+- (void)notEnoughMoney{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"notEnoughMoney"}];
+}
 - (void)updateLeftTips:(NSString *)title content:(NSString *)content{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"systemText",@"title":title,@"content":content}];
 }

@@ -275,22 +275,8 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
   }else if ([func isEqualToString:@"userIncome"]){
     NSDictionary *param = json[@"param"];
     [self.incomeView updateIncome:param];
-    BOOL free = [param[@"is_free"] boolValue];
-    BOOL show = [param[@"show_fee_type"] intValue] == 1;
-    int tip_minute = [param[@"fee_tips_minutes"] intValue];
-    int total_minute = [param[@"fee_total_minutes"] intValue];
-    BOOL need = !free && total_minute - tip_minute <= 1;
-    
-    [self.callingFunctionView updateChargeStatus:!show || !need];
-    
-    if (show && need){
-      NSString *s = @"文撩提醒您：";
-      NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-      style.lineSpacing = 5;
-      NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n您的撩币余额已不足%d分钟，为避免通话中断，请及时为爱充值～",s,total_minute] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
-      [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
-      self.tips.attributedText = att;
-    }
+  }else if ([func isEqualToString:@"notEnoughMoney"]){
+    [self.callingFunctionView updateChargeStatus:false];
   }else if ([func isEqualToString:@"window"]){
     BOOL random = [json[@"param"] boolValue];
     self.isRandom = random;
