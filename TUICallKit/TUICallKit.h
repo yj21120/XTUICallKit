@@ -115,6 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)endCall;
 - (void)setCallDelegate:(id<TUIObserver>)delegate;
 - (void)pornWarning:(BOOL)porn tips:(NSString *)tip;
+- (void)updateLeftTips:(NSString *)tips;
 @end
 
 NS_ASSUME_NONNULL_END

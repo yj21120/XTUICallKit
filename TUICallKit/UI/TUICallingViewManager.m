@@ -334,6 +334,14 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",s,tip] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
     [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
     self.tips.attributedText = att;
+  }else if ([func isEqualToString:@"systemText"]){
+    NSString *text = json[@"text"];
+    NSString *s = @"文撩提醒您：";
+    NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+    style.lineSpacing = 5;
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@",s,text] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:UIColor.whiteColor,NSParagraphStyleAttributeName:style}];
+    [att addAttributes:@{NSForegroundColorAttributeName:[UIColor t_colorWithHexString:@"#25E093"]} range:NSMakeRange(0, s.length)];
+    self.tips.attributedText = att;
   }
 }
 - (void)loadAnimationView:(NSString *)jsonPath searchPath:(NSString *)searchPath{

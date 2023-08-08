@@ -870,5 +870,8 @@ callMediaType:(TUICallMediaType)callMediaType
 - (void)pornWarning:(BOOL)porn tips:(NSString *)tip{
   [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"pornWarning",@"param":@{@"porn":@(porn),@"tip":tip}}];
 }
+- (void)updateLeftTips:(NSString *)tips{
+  [NSNotificationCenter.defaultCenter postNotificationName:@"flutterCallBack" object:@{@"func":@"systemText",@"text":tips}];
+}
 
 @end
