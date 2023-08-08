@@ -21,6 +21,7 @@
 @property (nonatomic, strong) TUICallingControlButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *giftBtn;
 @property (nonatomic,strong) AnimationView *aniView;
+@property (nonatomic,assign) BOOL porn;
 @end
 
 @implementation TUICallingVideoFunctionView
@@ -130,7 +131,7 @@
     }
 }
 - (void)updatePorn:(BOOL)porn{
-  self.isPorn = porn;
+  self.porn = porn;
   if (porn){
     [TUICallingAction closeCamera];
   }else{
@@ -143,7 +144,7 @@
     if (![TUICallingStatusManager shareInstance].isCloseCamera) {
         [TUICallingAction closeCamera];
     } else {
-      if (!self.isPorn){
+      if (!self.porn){
         [TUICallingAction openCamera:[TUICallingStatusManager shareInstance].camera videoView:_localPreView];
       }
     }

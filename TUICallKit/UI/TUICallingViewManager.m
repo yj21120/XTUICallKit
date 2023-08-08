@@ -513,7 +513,6 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
         self.callingFunctionView = [[TUICallingVideoFunctionView alloc] initWithFrame:CGRectZero];
         self.callingFunctionView.localPreView = self.localPreView;
     }
-  self.callingFunctionView.isPorn = false;
   self.backgroundView.hidden = false;
   [self.userAvatarView removeFromSuperview];
     [self.containerView addSubview:self.backgroundView];
