@@ -308,7 +308,8 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
   }else if ([func isEqualToString:@"pornWarning"]){
     NSDictionary *param = json[@"param"];
     BOOL porn = [param[@"porn"] boolValue];
-    [self.callingFunctionView updatePorn:porn];
+    self.backgroundView.hidden = porn;
+//    [self.callingFunctionView updatePorn:porn];
   }else if ([func isEqualToString:@"systemText"]){
     NSString *title = json[@"title"];
     NSString *content = json[@"content"];
@@ -909,7 +910,9 @@ static NSString * const TUICallKit_TUIGroupService_UserDataValue = @"TUICallKit"
     TUICallScene callScene = [TUICallingStatusManager shareInstance].callScene;
     if (callScene == TUICallSceneSingle && callMediaType == TUICallMediaTypeVideo) {
         if ([TUICallingStatusManager shareInstance].callStatus == TUICallStatusAccept) {
+          if (!self.backgroundView.hidden){
             renderView = self.remotePreView;
+          }
         } else {
             renderView = self.localPreView;
         }
