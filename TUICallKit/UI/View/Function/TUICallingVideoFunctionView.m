@@ -231,7 +231,7 @@
       _switchCameraBtn = [TUICallingControlButton createWithFrame:CGRectZero titleText:@"镜头" buttonAction:^(UIButton * _Nonnull sender) {
         [weakSelf switchCameraTouchEvent:sender];
       } imageSize:CGSizeMake(36, 36)];
-      [_switchCameraBtn updateImage:[UIImage imageNamed:@"func_camera_on"]];
+      [_switchCameraBtn updateImage:[UIImage imageNamed:@"镜头"]];
       [_switchCameraBtn updateTitleColor:[UIColor.whiteColor colorWithAlphaComponent:0.4]];
       [_switchCameraBtn updateFont:[UIFont systemFontOfSize:9]];
     }
