@@ -48,7 +48,6 @@ static NSString * const TUI_CALLING_BELL_KEY = @"CallingBell";
 @property (nonatomic, assign) NSInteger totalTime;
 @property (nonatomic, assign) BOOL needContinuePlaying;
 @property (nonatomic, copy) NSString *groupID;
-@property (nonatomic, assign) BOOL callEnable;
 
 @end
 
@@ -66,7 +65,7 @@ static NSString * const TUI_CALLING_BELL_KEY = @"CallingBell";
 - (instancetype)init {
     self = [super init];
     if (self) {
-      _callEnable = true;
+      
         _enableMuteMode = NO;
         _currentCallingRole = NO;
         _enableCustomViewRoute = NO;
@@ -122,7 +121,7 @@ callMediaType:(TUICallMediaType)callMediaType
         }
         return;
     }
-  _callEnable = true;
+  
     self.currentCallingType = callMediaType;
     self.currentCallingRole = TUICallRoleCall;
     TUIRoomId *roomId = [[TUIRoomId alloc] init];
@@ -371,9 +370,7 @@ callMediaType:(TUICallMediaType)callMediaType
 
 - (void)onError:(int)code message:(NSString * _Nullable)message {
     NSString *toast = [NSString stringWithFormat:@"Error code: %d, Message: %@", code, message];
-  if (!self.callEnable){
-    return;
-  }
+  
     if (code == ERR_ROOM_ENTER_FAIL) {
         [self makeToast:toast duration:3 position:TUICSToastPositionCenter];
     } else if(code == ERROR_REQUEST_REPEATED) {
@@ -384,9 +381,7 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)onUserJoin:(nonnull NSString *)userId {
-  if (!self.callEnable){
-    return;
-  }
+  
     CallingUserModel *userModel = [TUICallingUserManager getUser:userId];
     
     if (userModel) {
@@ -409,37 +404,27 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)onUserLeave:(nonnull NSString *)userId {
-  if (!self.callEnable){
-    return;
-  }
+  
     [self handleUserLeave:userId removeReason:TUICallingUserRemoveReasonLeave];
 }
 
 - (void)onUserReject:(nonnull NSString *)userId {
-  if (!self.callEnable){
-    return;
-  }
+  
     [self handleUserLeave:userId removeReason:TUICallingUserRemoveReasonReject];
 }
 
 - (void)onUserNoResponse:(nonnull NSString *)userId {
-  if (!self.callEnable){
-    return;
-  }
+  
     [self handleUserLeave:userId removeReason:TUICallingUserRemoveReasonNoResp];
 }
 
 - (void)onUserLineBusy:(nonnull NSString *)userId {
-  if (!self.callEnable){
-    return;
-  }
+ 
     [self handleUserLeave:userId removeReason:TUICallingUserRemoveReasonBusy];
 }
 
 - (void)onUserAudioAvailable:(nonnull NSString *)userId isAudioAvailable:(BOOL)isAudioAvailable {
-  if (!self.callEnable){
-    return;
-  }
+  
     CallingUserModel *userModel = [TUICallingUserManager getUser:userId];
     
     if (userModel) {
@@ -464,9 +449,7 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)onUserVideoAvailable:(nonnull NSString *)userId isVideoAvailable:(BOOL)isVideoAvailable {
-  if (!self.callEnable){
-    return;
-  }
+  
     CallingUserModel *userModel = [TUICallingUserManager getUser:userId];
     
     if (userModel) {
@@ -490,9 +473,7 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)onUserVoiceVolumeChanged:(nonnull NSDictionary<NSString *, NSNumber *> *)volumeMap {
-  if (!self.callEnable){
-    return;
-  }
+  
     NSArray *keyArray = volumeMap.allKeys;
     
     for (NSString *userId in keyArray) {
@@ -515,14 +496,7 @@ callMediaType:(TUICallMediaType)callMediaType
                groupId:(NSString *)groupId
          callMediaType:(TUICallMediaType)callMediaType
               userData:(NSString *)userData {
-  if (userData){
-    _callEnable = true;
-  }else{
-    _callEnable = false;
-  }
-  if (!self.callEnable){
-    return;
-  }
+  
     if (![TUICallingCommon checkArrayValid:calleeIdList]) {
         return;
     }
@@ -556,16 +530,12 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)onCallCancelled:(nonnull NSString *)callerId {
-  if (!self.callEnable){
-    return;
-  }
+  
     [self callEnd];
 }
 
 - (void)onCallBegin:(nonnull TUIRoomId *)roomId callMediaType:(TUICallMediaType)callMediaType callRole:(TUICallRole)callRole {
-  if (!self.callEnable){
-    return;
-  }
+ 
     [self stopAudio];
     [TUICallingStatusManager shareInstance].callStatus = TUICallStatusAccept;
     
@@ -581,9 +551,7 @@ callMediaType:(TUICallMediaType)callMediaType
     callMediaType:(TUICallMediaType)callMediaType
          callRole:(TUICallRole)callRole
         totalTime:(float)totalTime {
-  if (!self.callEnable){
-    return;
-  }
+  
     [self callEnd];
 }
 
@@ -596,9 +564,7 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)handleUserLeave:(NSString *)userId removeReason:(TUICallingUserRemoveReason)removeReason {
-  if (!self.callEnable){
-    return;
-  }
+  
     if (!(userId && [userId isKindOfClass:NSString.class] && userId.length > 0)) {
         return;
     }
@@ -627,9 +593,7 @@ callMediaType:(TUICallMediaType)callMediaType
 }
 
 - (void)handleUserLeaveToast:(CallingUserModel *)userModel reason:(TUICallingUserRemoveReason)reason {
-  if (!self.callEnable){
-    return;
-  }
+ 
     NSString *toast = @"";
     switch (reason) {
         case TUICallingUserRemoveReasonReject:
