@@ -17,7 +17,7 @@
 @property (nonatomic, strong) TUICallingControlButton *handsfreeBtn;
 @property (nonatomic, strong) TUICallingControlButton *closeCameraBtn;
 @property (nonatomic, strong) CustomButton1 *hangupBtn;
-@property (nonatomic, strong) UIButton *switchCameraBtn;
+@property (nonatomic, strong) TUICallingControlButton *switchCameraBtn;
 @property (nonatomic, strong) TUICallingControlButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *giftBtn;
 @property (nonatomic,strong) AnimationView *aniView;
@@ -39,7 +39,7 @@
       [self addSubview:self.giftBtn];
       [self addSubview:self.aniView];
       
-//        [self addSubview:self.switchCameraBtn];
+        [self addSubview:self.switchCameraBtn];
         
         [self makeConstraints];
     }
@@ -65,6 +65,10 @@
   }];
   [self.handsfreeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.mas_equalTo(self.muteBtn.mas_right).mas_offset(20);
+    make.top.width.height.mas_equalTo(self.muteBtn);
+  }];
+  [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.mas_equalTo(self.handsfreeBtn.mas_right).mas_offset(20);
     make.top.width.height.mas_equalTo(self.muteBtn);
   }];
   [self.rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -221,11 +225,15 @@
     return _hangupBtn;
 }
 
-- (UIButton *)switchCameraBtn {
+- (TUICallingControlButton *)switchCameraBtn {
     if (!_switchCameraBtn) {
-        _switchCameraBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_switchCameraBtn setBackgroundImage:[TUICallingCommon getBundleImageWithName:@"switch_camera"] forState:UIControlStateNormal];
-        [_switchCameraBtn addTarget:self action:@selector(switchCameraTouchEvent:) forControlEvents:UIControlEventTouchUpInside];
+        __weak typeof(self) weakSelf = self;
+      _switchCameraBtn = [TUICallingControlButton createWithFrame:CGRectZero titleText:@"镜头" buttonAction:^(UIButton * _Nonnull sender) {
+        [weakSelf switchCameraTouchEvent:sender];
+      } imageSize:CGSizeMake(36, 36)];
+      [_switchCameraBtn updateImage:[UIImage imageNamed:@"func_camera_on"]];
+      [_switchCameraBtn updateTitleColor:[UIColor.whiteColor colorWithAlphaComponent:0.4]];
+      [_switchCameraBtn updateFont:[UIFont systemFontOfSize:9]];
     }
     return _switchCameraBtn;
 }
